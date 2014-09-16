@@ -24,8 +24,8 @@ class WorkThread(QtCore.QThread):
         while True:
             ws = words()
             for w in ws:
-                label.setText(w)
-                sleep(5)
+                label.setText(w)#this is probably a bad idea
+                sleep(len(w) * 0.1)
 
 if __name__ == "__main__":
     app = QtGui.QApplication(sys.argv)
