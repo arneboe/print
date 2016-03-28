@@ -1,10 +1,14 @@
+import sun.nio.cs.IBM437;
+
 import javax.imageio.ImageIO;
 import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.*;
+import java.nio.charset.Charset;
+import java.util.Random;
 
 /**
- * Created by arne on 12.03.16.
+ * print images to thermal printer
  */
 public class Main {
 
@@ -221,36 +225,62 @@ public class Main {
     }
   }
 
-  public static void main(String args[]) throws IOException {
-    FileInputStream in = new FileInputStream("/home/arne/1.jpg");
-    BufferedImage screen = ImageIO.read(in);
-    final int targetWidth = 390;
-    final double scale = screen.getWidth() / targetWidth;
-    final int targetHeight = (int)Math.ceil(screen.getHeight() / scale);
-    //width must be a multiple of 8
-    BufferedImage img = new BufferedImage(targetWidth, targetHeight, BufferedImage.TYPE_INT_RGB);
-    Graphics2D g = img.createGraphics();
+  public static void main(String args[]) throws IOException, InterruptedException {
 
-    g.drawImage(screen, 0, 0, targetWidth, targetHeight, 0, 0, screen.getWidth(),
-            screen.getHeight(), null);
-    g.dispose();
-
-    atkinsonDither(img);
-    File outputfile = new File("/home/arne/test.png");
-    ImageIO.write(img, "png", outputfile);
-
-
+    Porn porn = new Porn();
 
     try {
       FileOutputStream writer = new FileOutputStream("/dev/usb/lp0");
       writer.write(new byte[]{0x1B, 0x40});
-      sendImg(img, writer);
+      Charset charset = new IBM437();
+      Random random = new Random();
+      for(int i = 0; i < 100; ++i) {
+        final String keyword = porn.getNext();
+        byte[] bytes = keyword.getBytes(charset);
+        writer.write(bytes);
+        writer.write(new byte[]{0x0A});
+        writer.write(new byte[]{0x0A});
+        Thread.sleep(random.nextInt(20000) + 3000);
+      }
+
       writer.close();
 
     } catch (IOException e) {
       e.printStackTrace();
     }
 
+/*
+    for (int i = 0; i < 10; ++i) {
+      FileInputStream in = new FileInputStream("/home/arne/1.jpg");
+      BufferedImage screen = ImageIO.read(in);
+      final int targetWidth = 390;
+      final double scale = screen.getWidth() / targetWidth;
+      final int targetHeight = (int) Math.ceil(screen.getHeight() / scale);
+      //width must be a multiple of 8
+      BufferedImage img = new BufferedImage(targetWidth, targetHeight, BufferedImage.TYPE_INT_RGB);
+      Graphics2D g = img.createGraphics();
+
+      g.drawImage(screen, 0, 0, targetWidth, targetHeight, 0, 0, screen.getWidth(),
+              screen.getHeight(), null);
+      g.dispose();
+
+      atkinsonDither(img);
+      File outputfile = new File("/home/arne/test.png");
+      ImageIO.write(img, "png", outputfile);
+
+
+      try {
+        FileOutputStream writer = new FileOutputStream("/dev/usb/lp0");
+        writer.write(new byte[]{0x1B, 0x40});
+        sendImg(img, writer);
+        writer.close();
+
+      } catch (IOException e) {
+        e.printStackTrace();
+      }
+
+    }
+    */
   }
 
 }
