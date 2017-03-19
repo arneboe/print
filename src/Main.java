@@ -1,3 +1,5 @@
+package src;
+
 import sun.nio.cs.IBM437;
 
 import javax.imageio.ImageIO;
@@ -38,21 +40,22 @@ public class Main {
     return entries;
   }
 
-  public static void testCrawl() throws IOException, ClassNotFoundException {
-    //ArrayList<IWroteThisForYouEntry> entries = IWroteThisForYouCrawler.crawl();
-    //writeIWTFY(entries);
-    ArrayList<IWroteThisForYouEntry> entries = readIWTFY();
-    for(IWroteThisForYouEntry e : entries)
-    {
-      System.out.println("------------------------");
-      System.out.println(e.title);
-      System.out.println(e.text);
-    }
+  public static void crawl() throws IOException, ClassNotFoundException {
+    ArrayList<IWroteThisForYouEntry> entries = IWroteThisForYouCrawler.crawl();
+    writeIWTFY(entries);
   }
 
   public static void main(String args[]) throws IOException, InterruptedException, ClassNotFoundException {
 
-    testCrawl();
+//    ArrayList<IWroteThisForYouEntry> entries = readIWTFY();
+//    for(IWroteThisForYouEntry e : entries)
+//    {
+//      System.out.println("------------------------");
+//      System.out.println(e.title);
+//      System.out.println(e.text);
+//    }
+
+  crawl();
 
     /*
     Printer printer = new Printer();

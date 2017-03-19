@@ -1,3 +1,5 @@
+package src;
+
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
@@ -7,9 +9,7 @@ import java.io.InputStreamReader;
 import java.net.URL;
 import java.util.Stack;
 
-/**
- * Created by arne on 13.03.16.
- */
+
 public class Porn {
 
   private Stack<String> keywords = new Stack<>();

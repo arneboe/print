@@ -1,4 +1,5 @@
-import java.awt.*;
+package src;
+
 import java.io.Serializable;
 
 /**
@@ -8,5 +9,5 @@ public class IWroteThisForYouEntry implements Serializable {
 
   public String title;
   public String text;
-  public SerializeableImage image;
+  public SerializableImage image;
 }

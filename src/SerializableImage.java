@@ -1,3 +1,5 @@
+package src;
+
 import javax.imageio.ImageIO;
 import java.awt.*;
 import java.awt.image.BufferedImage;
@@ -9,15 +11,16 @@ import java.io.Serializable;
 /**
  * Created by arne on 28.03.16.
  */
-public class SerializeableImage implements Serializable {
+public class SerializableImage implements Serializable {
     public transient BufferedImage image;
 
-    public SerializeableImage(BufferedImage img) {
+    public SerializableImage(BufferedImage img) {
       image = img;
     }
 
     private void writeObject(ObjectOutputStream out) throws IOException {
       out.defaultWriteObject();
+
         ImageIO.write(image, "png", out);
     }
 
