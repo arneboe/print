@@ -1,4 +1,5 @@
-import sun.nio.cs.IBM437;
+package src;
+
 
 import javax.imageio.ImageIO;
 import java.awt.*;
@@ -22,7 +23,7 @@ import java.util.Random;
 public class Printer {
 
   private FileOutputStream writer = null;
-  Charset charset = new IBM437();//is the default charset of the printer
+//  Charset charset = new IBM437();//is the default charset of the printer
   private final int imgWidth = 392;
 
    void open(final String device)

@@ -1,6 +1,5 @@
 package src;
 
-import sun.nio.cs.IBM437;
 
 import javax.imageio.ImageIO;
 import java.awt.*;
@@ -15,6 +14,7 @@ import java.util.Random;
  */
 public class Main {
 
+/*
   public static void writeIWTFY(ArrayList<IWroteThisForYouEntry> entries) {
 
     try {
@@ -44,6 +44,7 @@ public class Main {
     ArrayList<IWroteThisForYouEntry> entries = IWroteThisForYouCrawler.crawl();
     writeIWTFY(entries);
   }
+*/
 
   public static void main(String args[]) throws IOException, InterruptedException, ClassNotFoundException {
 
@@ -55,19 +56,19 @@ public class Main {
 //      System.out.println(e.text);
 //    }
 
-  crawl();
+  //crawl();
 
-    /*
+
     Printer printer = new Printer();
     printer.open("/dev/usb/lp0");
     Porn p = new Porn();
     for(int i = 0; i < 300; ++i)
     {
       final String s = p.getNext();
-      printer.text(s, new Font("Serif", Font.PLAIN, 20), true);
+      printer.text(s, new Font("Serif", Font.PLAIN, 20), false);
       printer.lineFeed(1);
     }
-    */
+
 
 /*
 
