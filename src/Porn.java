@@ -30,7 +30,7 @@ public class Porn {
 
   private void loadNext() {
     try {
-      final String jsonStr = readUrl("http://www.pornmd.com/getliveterms");
+      final String jsonStr = readUrl("https://www.pornmd.com/getliveterms");
       JSONArray array = (JSONArray)new JSONParser().parse(jsonStr);
       for(int i = 0; i < array.size(); ++i) {
         JSONObject obj = (JSONObject) array.get(i);

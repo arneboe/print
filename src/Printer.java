@@ -155,6 +155,7 @@ public class Printer {
       if (listOfFiles[i].isFile()) {
         System.out.println("File " + listOfFiles[i].getName());
         image(listOfFiles[i].getAbsolutePath());
+        lineFeed(1);
       }
     }
   }
@@ -180,12 +181,6 @@ public class Printer {
     //convert to b&w using atkinson dithering with otsu thresholding
     atkinsonDither(img);
 
-   // File outputfile = new File("/home/arne/test.png");//only for testing
-    try {
-      ImageIO.write(img, "png", outputfile);
-    } catch (IOException e) {
-      e.printStackTrace();
-    }
     sendImg(img);
   }
 
