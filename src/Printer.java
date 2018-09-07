@@ -142,7 +142,7 @@ public class Printer {
 
     //scale it
     final int targetWidth = imgWidth;
-    final double scale = input.getWidth() / targetWidth;
+    final double scale = input.getWidth() / (double)targetWidth;
     final int targetHeight = (int) Math.ceil(input.getHeight() / scale);
 
     BufferedImage img = new BufferedImage(targetWidth, targetHeight, BufferedImage.TYPE_INT_RGB);
