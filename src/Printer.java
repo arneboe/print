@@ -125,6 +125,11 @@ public class Printer {
     try {
       FileInputStream in = new FileInputStream(path);
       BufferedImage img = ImageIO.read(in);
+      if(null == img) {
+        System.out.println(path + "is not an image. Skipping!");
+        return;
+      }
+
       image(img);
     } catch (FileNotFoundException e) {
       e.printStackTrace();
@@ -133,6 +138,26 @@ public class Printer {
     }
   }
 
+
+  /** Print all pictures from the specified folder */
+  public void imagesFromFolder(String path) {
+    File folder = new File(path);
+
+    if(!folder.exists())
+    {
+      System.out.println("folder doenst exist");
+      return;
+    }
+
+    File[] listOfFiles = folder.listFiles();
+
+    for (int i = 0; i < listOfFiles.length; i++) {
+      if (listOfFiles[i].isFile()) {
+        System.out.println("File " + listOfFiles[i].getName());
+        image(listOfFiles[i].getAbsolutePath());
+      }
+    }
+  }
 
   /**converts image to black&white and prints it */
   public void image(BufferedImage input)
@@ -155,7 +180,7 @@ public class Printer {
     //convert to b&w using atkinson dithering with otsu thresholding
     atkinsonDither(img);
 
-    File outputfile = new File("/home/arne/test.png");//only for testing
+   // File outputfile = new File("/home/arne/test.png");//only for testing
     try {
       ImageIO.write(img, "png", outputfile);
     } catch (IOException e) {
