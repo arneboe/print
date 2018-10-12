@@ -1,5 +1,3 @@
-package src.main.java;
-
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
@@ -14,11 +12,11 @@ public class Porn {
 
   private Stack<String> keywords = new Stack<>();
 
-  public Porn() {
+  public Porn() throws Exception {
     loadNext();
   }
 
-  public String getNext() {
+  public String getNext() throws Exception {
     if(keywords.size() <= 0) {
       loadNext();
     }
@@ -28,18 +26,14 @@ public class Porn {
     return keywords.pop();
   }
 
-  private void loadNext() {
-    try {
-      final String jsonStr = readUrl("https://www.pornmd.com/getliveterms");
-      JSONArray array = (JSONArray)new JSONParser().parse(jsonStr);
-      for(int i = 0; i < array.size(); ++i) {
-        JSONObject obj = (JSONObject) array.get(i);
-        keywords.push(obj.get("keyword").toString());
+  private void loadNext() throws Exception {
+    final String jsonStr = readUrl("https://www.pornmd.com/getliveterms");
+    JSONArray array = (JSONArray)new JSONParser().parse(jsonStr);
+    for(int i = 0; i < array.size(); ++i) {
+      JSONObject obj = (JSONObject) array.get(i);
+      keywords.push(obj.get("keyword").toString());
       }
 
-    } catch (Exception e) {
-      e.printStackTrace();
-    }
   }
 
   private  String readUrl(String urlString) throws Exception {

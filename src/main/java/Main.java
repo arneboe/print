@@ -39,42 +39,34 @@ public class Main {
   }
 */
 
-  public static void main(String args[]) throws IOException, InterruptedException, ClassNotFoundException {
+  public static void main(String args[]) {
 
-//    ArrayList<IWroteThisForYouEntry> entries = readIWTFY();
-//    for(IWroteThisForYouEntry e : entries)
-//    {
-//      System.out.println("------------------------");
-//      System.out.println(e.title);
-//      System.out.println(e.text);
-//    }
-
-  //crawl();
-
-    Porn porn = new Porn();
-    HashSet<String> porns = new HashSet<>();
     Printer printer = new Printer();
-    printer.open("/dev/printer");
-
-    for(int i = 0; i < 1000; ++i) {
-      final String p = porn.getNext();
-      if(porns.contains(p))
-        continue;
-      porns.add(p);
-      printer.text(p, new Font("Serif", Font.PLAIN, 20), false);
-      //printer.lineFeed(1);
+    try {
+      printer.open("/dev/printer");
+    } catch (FileNotFoundException e) {
+      e.printStackTrace();
+      return;
     }
 
+    try {
+      Porn porn = new Porn();
+      HashSet<String> porns = new HashSet<>();
 
-    /*
-    for(int i = 0; i < 2; ++i) {
-      printer.imagesFromFolder("/home/arne/lenas");
-      printer.lineFeed(20);
+      for(int i = 0; i < 50; ++i) {
+        final String p = porn.getNext();
+        if(porns.contains(p))
+          continue;
+        porns.add(p);
+        printer.text(p, new Font("Serif", Font.PLAIN, 20), false);
+        //printer.lineFeed(1);
+      }
+    } catch (Exception e) {
+      printer.text("NO INTERNET CONNECTION", new Font("Serif", Font.BOLD, 20), false);
+      printer.lineFeed(4);
     }
-    */
 
     printer.close();
-
 
   }
 

@@ -1,6 +1,3 @@
-package src.main.java;
-
-
 import javax.imageio.ImageIO;
 import java.awt.*;
 import java.awt.font.FontRenderContext;
@@ -26,13 +23,8 @@ public class Printer {
 //  Charset charset = new IBM437();//is the default charset of the printer
   private final int imgWidth = 392;
 
-   void open(final String device)
-  {
-    try {
+   void open(final String device) throws FileNotFoundException {
       writer = new FileOutputStream(device);
-    } catch (FileNotFoundException e) {
-      e.printStackTrace();
-    }
   }
 
   /**Clear the print buffer and reset offset to begin of line */
