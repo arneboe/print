@@ -1,4 +1,4 @@
-package src;
+package src.main.java;
 
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;

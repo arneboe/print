@@ -1,19 +1,12 @@
-package src;
-
-
-import javax.imageio.ImageIO;
 import java.awt.*;
-import java.awt.image.BufferedImage;
 import java.io.*;
-import java.nio.charset.Charset;
-import java.util.ArrayList;
-import java.util.Random;
+import java.util.HashSet;
 
 /**
  * print images to thermal printer
  */
 public class Main {
-
+  
 /*
   public static void writeIWTFY(ArrayList<IWroteThisForYouEntry> entries) {
 
@@ -58,10 +51,28 @@ public class Main {
 
   //crawl();
 
-
+    Porn porn = new Porn();
+    HashSet<String> porns = new HashSet<>();
     Printer printer = new Printer();
-    printer.open("/dev/usb/lp6");
-    printer.imagesFromFolder("/home/arne/lenas");
+    printer.open("/dev/printer");
+
+    for(int i = 0; i < 1000; ++i) {
+      final String p = porn.getNext();
+      if(porns.contains(p))
+        continue;
+      porns.add(p);
+      printer.text(p, new Font("Serif", Font.PLAIN, 20), false);
+      //printer.lineFeed(1);
+    }
+
+
+    /*
+    for(int i = 0; i < 2; ++i) {
+      printer.imagesFromFolder("/home/arne/lenas");
+      printer.lineFeed(20);
+    }
+    */
+
     printer.close();
 
 

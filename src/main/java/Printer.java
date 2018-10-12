@@ -1,4 +1,4 @@
-package src;
+package src.main.java;
 
 
 import javax.imageio.ImageIO;
@@ -156,6 +156,11 @@ public class Printer {
         System.out.println("File " + listOfFiles[i].getName());
         image(listOfFiles[i].getAbsolutePath());
         lineFeed(1);
+        try {
+          Thread.sleep(3000);
+        } catch (InterruptedException e) {
+          e.printStackTrace();
+        }
       }
     }
   }
@@ -296,7 +301,10 @@ public class Printer {
       try {
         writer.write(temp);
         writer.flush();
+      //  Thread.sleep(20 ); //important!! increases image quality a lot!!
       } catch (IOException e) {
+        e.printStackTrace();
+      } catch (Exception e) {
         e.printStackTrace();
       }
     }
