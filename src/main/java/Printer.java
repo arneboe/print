@@ -103,12 +103,7 @@ public class Printer {
       AffineTransformOp op = new AffineTransformOp(tx, AffineTransformOp.TYPE_NEAREST_NEIGHBOR);
       croppedImg = op.filter(croppedImg, null);
     }
-    File outputfile = new File("/home/arne/test22.png");//only for testing
-    try {
-      ImageIO.write(croppedImg, "png", outputfile);
-    } catch (IOException e) {
-      e.printStackTrace();
-    }
+
     sendImg(croppedImg);
   }
 
