@@ -1,6 +1,7 @@
 import java.awt.*;
 import java.io.*;
 import java.util.HashSet;
+import java.io.File;
 
 /**
  * print images to thermal printer
@@ -39,11 +40,24 @@ public class Main {
   }
 */
 
+  public static String findPrinter() {
+
+    File dir = new File("/dev/usb");
+    File[] directoryListing = dir.listFiles();
+    if (directoryListing != null) {
+      for (File child : directoryListing) {
+        if(child.getName().startsWith("lp"))
+          return "/dev/usb/" + child.getName();
+      }
+    }
+    throw new RuntimeException("could not find printer");
+  }
+
   public static void main(String args[]) {
 
     Printer printer = new Printer();
     try {
-      printer.open("/dev/printer");
+      printer.open(findPrinter());
     } catch (FileNotFoundException e) {
       e.printStackTrace();
       return;
