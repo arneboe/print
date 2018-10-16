@@ -1,44 +1,24 @@
+import com.pi4j.io.gpio.*;
+import com.pi4j.io.gpio.event.GpioPinDigitalStateChangeEvent;
+import com.pi4j.io.gpio.event.GpioPinListener;
+import com.pi4j.io.gpio.event.GpioPinListenerDigital;
+
 import java.awt.*;
 import java.io.*;
 import java.util.HashSet;
 import java.io.File;
 
+
 /**
  * print images to thermal printer
  */
 public class Main {
-  
-/*
-  public static void writeIWTFY(ArrayList<IWroteThisForYouEntry> entries) {
 
+  private static void sleep() {
     try {
-      FileOutputStream out = new FileOutputStream("/home/arne/iwtfy_entries");
-      ObjectOutputStream oos = new ObjectOutputStream(out);
-      oos.writeObject(entries);
-      oos.flush();
-    } catch (Exception e) {
-      System.out.println("Problem serializing: " + e);
-    }
+      Thread.sleep(1000);
+    } catch (InterruptedException e) { }
   }
-
-  public static ArrayList<IWroteThisForYouEntry> readIWTFY() throws ClassNotFoundException, IOException {
-
-    ArrayList<IWroteThisForYouEntry> entries = null;
-    try {
-      FileInputStream in = new FileInputStream("/home/arne/iwtfy_entries");
-      ObjectInputStream ois = new ObjectInputStream(in);
-      entries = (ArrayList<IWroteThisForYouEntry>) (ois.readObject());
-    } catch (Exception e) {
-      System.out.println("Problem serializing: " + e);
-    }
-    return entries;
-  }
-
-  public static void crawl() throws IOException, ClassNotFoundException {
-    ArrayList<IWroteThisForYouEntry> entries = IWroteThisForYouCrawler.crawl();
-    writeIWTFY(entries);
-  }
-*/
 
   public static String findPrinter() {
 
@@ -53,32 +33,71 @@ public class Main {
     throw new RuntimeException("could not find printer");
   }
 
+  private static void print(Porn porn, Printer printer, int count) {
+    for(int i = 0; i < count; ++i) {
+
+      final String text;
+      try {
+        text = porn.getNext();
+        printer.text(text, new Font("Serif", Font.PLAIN, 20), false);
+      } catch (Exception e) {
+        System.out.println("Error while printing (internet broken?)");
+        return;
+      }
+    }
+  }
+
   public static void main(String args[]) {
 
+
     Printer printer = new Printer();
-    try {
-      printer.open(findPrinter());
-    } catch (FileNotFoundException e) {
-      e.printStackTrace();
-      return;
-    }
 
-    try {
-      Porn porn = new Porn();
-      HashSet<String> porns = new HashSet<>();
-
-      for(int i = 0; i < 50; ++i) {
-        final String p = porn.getNext();
-        if(porns.contains(p))
-          continue;
-        porns.add(p);
-        printer.text(p, new Font("Serif", Font.PLAIN, 20), false);
-        //printer.lineFeed(1);
+    while(true) {
+      try {
+        printer.open(findPrinter());
+        break;
+      } catch (FileNotFoundException e) {
+        System.out.println("Printer not found, waiting");
+        sleep();
       }
-    } catch (Exception e) {
-      printer.text("NO INTERNET CONNECTION", new Font("Serif", Font.BOLD, 20), false);
-      printer.lineFeed(4);
     }
+    System.out.println("Found printer");
+
+    Porn porn = null;
+    while(true) {
+      try {
+        porn = new Porn();
+        break;
+      } catch (Exception e) {
+        System.out.println("No internet, waiting...");
+        sleep();
+      }
+    }
+    System.out.println("Got internet");
+
+    final GpioController gpio = GpioFactory.getInstance();
+    GpioPinDigitalInput button = gpio.provisionDigitalInputPin(RaspiPin.GPIO_23, "MyButton", PinPullResistance.PULL_UP); // PIN RESISTANCE (optional)
+    Porn finalPorn = porn;
+    button.addListener(new GpioPinListenerDigital() {
+      @Override
+      public void handleGpioPinDigitalStateChangeEvent(GpioPinDigitalStateChangeEvent ev) {
+        if(ev.getState() == PinState.LOW) {
+          //print(finalPorn, printer, 50);
+          System.out.println("printing");
+          sleep();
+          System.out.println("printing22222");
+          sleep();
+          System.out.println("printing333333");
+        }
+      }
+    });
+
+    //now just wait for button presses
+    while(true)
+    {
+      sleep();
+    }
+
 
     printer.close();
 
