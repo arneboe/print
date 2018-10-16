@@ -59,6 +59,10 @@ public class Main {
       } catch (RuntimeException e) {
         System.out.println("Printer not found, waiting");
         sleep();
+      } catch (FileNotFoundException e) {
+        System.out.println("Printer not found, waiting");
+        sleep();
+
       }
     }
     System.out.println("Found printer");
