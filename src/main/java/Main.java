@@ -81,25 +81,21 @@ public class Main {
 
     final GpioController gpio = GpioFactory.getInstance();
     GpioPinDigitalInput button = gpio.provisionDigitalInputPin(RaspiPin.GPIO_23, "MyButton", PinPullResistance.PULL_UP); // PIN RESISTANCE (optional)
-    Porn finalPorn = porn;
-    button.addListener(new GpioPinListenerDigital() {
-      @Override
-      public void handleGpioPinDigitalStateChangeEvent(GpioPinDigitalStateChangeEvent ev) {
-        if(ev.getState() == PinState.LOW) {
-          //print(finalPorn, printer, 50);
-          System.out.println("printing");
-          sleep();
-          System.out.println("printing22222");
-          sleep();
-          System.out.println("printing333333");
-        }
-      }
-    });
 
-    //now just wait for button presses
+
     while(true)
     {
-      sleep();
+      try {
+        Thread.sleep(1);
+      } catch (InterruptedException e) {
+        e.printStackTrace();
+      }
+
+      if(button.isLow())
+      {
+        System.out.println("LOW");
+      }
+
     }
   }
 
