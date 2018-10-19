@@ -93,7 +93,7 @@ public class Main {
 
       if(button.isLow())
       {
-        System.out.println("LOW");
+        print(porn, printer,50);
       }
 
     }
