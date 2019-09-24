@@ -106,6 +106,12 @@ public class Main {
             System.getProperty("user.dir"));
     TheList theList = new TheList("TheList.csv");
 
+    for(TheList.ListEntry e : theList.records)
+    {
+      //TODO
+    }
+
+
 //    try {
 //      download();
 //    } catch (Exception e) {

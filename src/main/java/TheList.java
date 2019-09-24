@@ -8,8 +8,19 @@ import java.util.List;
 
 public class TheList {
 
+    public class ListEntry
+    {
+        public String foundDead;
+        public String number;
+        public String nameGenderAge;
+        public String regionOfDeath;
+        public String causeOfDeath;
+        public String source;
+    }
+
+
     final String[] headings = {"found dead", "number", "name, gender, age", "region of death", "cause of death", "source"};
-    List<List<String>> records = new ArrayList<>();
+    public List<ListEntry> records = new ArrayList<>();
 
     public TheList(final String pathToCsv)
     {
@@ -23,7 +34,16 @@ public class TheList {
             String line;
             while ((line = br.readLine()) != null) {
                 String[] values = line.split("\\|");
-                records.add(Arrays.asList(values));
+
+                ListEntry e = new ListEntry();
+                e.foundDead = values[0];
+                e.number = values[1];
+                e.nameGenderAge = values[2];
+                e.regionOfDeath = values[3];
+                e.causeOfDeath = values[4];
+                e.source = values[5];
+
+                records.add(e);
 
                 if(values.length != headings.length)
                 {
@@ -33,7 +53,6 @@ public class TheList {
                     System.out.println();
                     throw new RuntimeException("load missmatch");
                 }
-
             }
         } catch (FileNotFoundException e) {
             e.printStackTrace();
