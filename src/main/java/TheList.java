@@ -3,7 +3,6 @@ import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 public class TheList {
@@ -13,7 +12,7 @@ public class TheList {
         public String foundDead;
         public String number;
         public String nameGenderAge;
-        public String regionOfDeath;
+        public String regionOfOrigin;
         public String causeOfDeath;
         public String source;
     }
@@ -39,7 +38,7 @@ public class TheList {
                 e.foundDead = values[0];
                 e.number = values[1];
                 e.nameGenderAge = values[2];
-                e.regionOfDeath = values[3];
+                e.regionOfOrigin = values[3];
                 e.causeOfDeath = values[4];
                 e.source = values[5];
 
