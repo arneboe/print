@@ -160,7 +160,7 @@ public class Main {
       printer.text(e.causeOfDeath, new Font(" Monospaced", Font.PLAIN, 20), false);
       printer.lineFeed(1);
       printer.text("Reported by: " + e.source, new Font(" Monospaced", Font.PLAIN, 20), false);
-      printer.text(("-----------", new Font(" Monospaced", Font.PLAIN, 20), false);
+      printer.text("-----------", new Font(" Monospaced", Font.PLAIN, 20), false);
 
       printer.lineFeed(3);
 
