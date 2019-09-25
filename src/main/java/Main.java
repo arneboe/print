@@ -101,15 +101,9 @@ public class Main {
 
 
   public static void main(String args[]) {
-
-    System.out.println("Working Directory = " +
-            System.getProperty("user.dir"));
     TheList theList = new TheList("TheList.csv");
 
-    for(TheList.ListEntry e : theList.records)
-    {
-      //TODO
-    }
+
 
 
 //    try {
@@ -118,7 +112,7 @@ public class Main {
 //      e.printStackTrace();
 //    }
 //    return;
-    /*
+
 
     Printer printer = new Printer();
 
@@ -137,37 +131,56 @@ public class Main {
     }
     System.out.println("Found printer");
 
-    Porn porn = null;
-    while(true) {
-      try {
-        porn = new Porn();
-        break;
-      } catch (Exception e) {
-        System.out.println("No internet, waiting...");
-        sleep();
-      }
-    }
-    System.out.println("Got internet");
+//    Porn porn = null;
+//    while(true) {
+//      try {
+//        porn = new Porn();
+//        break;
+//      } catch (Exception e) {
+//        System.out.println("No internet, waiting...");
+//        sleep();
+//      }
+//    }
+//    System.out.println("Got internet");
 
-    final GpioController gpio = GpioFactory.getInstance();
-    GpioPinDigitalInput button = gpio.provisionDigitalInputPin(RaspiPin.GPIO_23, "MyButton", PinPullResistance.PULL_UP); // PIN RESISTANCE (optional)
+ //   final GpioController gpio = GpioFactory.getInstance();
+ //   GpioPinDigitalInput button = gpio.provisionDigitalInputPin(RaspiPin.GPIO_23, "MyButton", PinPullResistance.PULL_UP); // PIN RESISTANCE (optional)
 
-
-    while(true)
+    for(TheList.ListEntry e : theList.records)
     {
-      try {
-        Thread.sleep(1);
-      } catch (InterruptedException e) {
-        e.printStackTrace();
-      }
 
-      if(button.isLow())
-      {
-        print(porn, printer,50);
+      printer.text(e.regionOfDeath + ":", new Font("Serif", Font.PLAIN, 20), false);
+      printer.text(e.foundDead, new Font("Serif", Font.PLAIN, 20), false);
+      printer.text(e.number + " dead", new Font("Serif", Font.PLAIN, 20), false);
+      printer.text(e.nameGenderAge, new Font("Serif", Font.PLAIN, 20), false);
+      printer.text(e.causeOfDeath, new Font("Serif", Font.PLAIN, 20), false);
+      printer.text("Reported by: " + e.source, new Font("Serif", Font.PLAIN, 20), false);
+
+      printer.lineFeed(3);
+
+      try {
+        Thread.sleep(3000);
+      } catch (InterruptedException ex) {
       }
+    }
+
+//    while(true)
+//    {
+//      try {
+//        Thread.sleep(1);
+//      } catch (InterruptedException e) {
+//        e.printStackTrace();
+//      }
+//
+
+
+//      if(button.isLow())
+//      {
+//        print(porn, printer,50);
+//      }
 
     }
-    */
+
 
   }
 
