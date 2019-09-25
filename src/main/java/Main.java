@@ -101,7 +101,7 @@ public class Main {
 
 
   public static void main(String args[]) {
-    TheList theList = new TheList("TheList.csv");
+    TheList theList = new TheList("/home/pi/TheList.csv");
 
 
 
@@ -149,12 +149,18 @@ public class Main {
     for(TheList.ListEntry e : theList.records)
     {
 
-      printer.text(e.regionOfDeath + ":", new Font("Serif", Font.PLAIN, 20), false);
-      printer.text(e.foundDead, new Font("Serif", Font.PLAIN, 20), false);
-      printer.text(e.number + " dead", new Font("Serif", Font.PLAIN, 20), false);
-      printer.text(e.nameGenderAge, new Font("Serif", Font.PLAIN, 20), false);
-      printer.text(e.causeOfDeath, new Font("Serif", Font.PLAIN, 20), false);
-      printer.text("Reported by: " + e.source, new Font("Serif", Font.PLAIN, 20), false);
+      if(e.regionOfDeath.equals("unknown"))
+        printer.text("Unknown Location", new Font(" Monospaced", Font.BOLD, 22), false);
+      else
+        printer.text(e.regionOfDeath, new Font(" Monospaced", Font.BOLD, 22), false);
+
+      printer.text(e.foundDead, new Font(" Monospaced", Font.PLAIN, 20), false);
+      printer.text(e.number + " dead", new Font(" Monospaced", Font.PLAIN, 20), false);
+      printer.text(e.nameGenderAge, new Font(" Monospaced", Font.PLAIN, 20), false);
+      printer.text(e.causeOfDeath, new Font(" Monospaced", Font.PLAIN, 20), false);
+      printer.lineFeed(1);
+      printer.text("Reported by: " + e.source, new Font(" Monospaced", Font.PLAIN, 20), false);
+      printer.text(("-----------", new Font(" Monospaced", Font.PLAIN, 20), false);
 
       printer.lineFeed(3);
 
@@ -179,7 +185,7 @@ public class Main {
 //        print(porn, printer,50);
 //      }
 
-    
+
 
 
   }
