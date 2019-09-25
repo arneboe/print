@@ -155,11 +155,19 @@ public class Main {
         e.nameGenderAge = e.nameGenderAge.replace("Name(s)", "Names");
 
       printer.text(e.nameGenderAge, new Font(" Monospaced", Font.PLAIN, 20), false);
-      printer.text("Born in " + e.regionOfOrigin, new Font(" Monospaced", Font.PLAIN, 20), false);
+
+      if(e.regionOfOrigin.trim().equals("unknown"))
+        printer.text("Born in unknown location", new Font(" Monospaced", Font.PLAIN, 20), false);
+      else
+        printer.text("Born in " + e.regionOfOrigin, new Font(" Monospaced", Font.PLAIN, 20), false);
+
+
       printer.text(e.causeOfDeath, new Font(" Monospaced", Font.PLAIN, 20), false);
       printer.lineFeed(1);
-      printer.text("Reported by: " + e.source, new Font(" Monospaced", Font.PLAIN, 20), false);
-      printer.text("-----------", new Font(" Monospaced", Font.PLAIN, 20), false);
+      printer.text("Reported by:", new Font(" Monospaced", Font.PLAIN, 20), false);
+      printer.text(e.source, new Font(" Monospaced", Font.PLAIN, 20), false);
+
+      //printer.text("-----------", new Font(" Monospaced", Font.PLAIN, 20), false);
 
       printer.lineFeed(3);
 
