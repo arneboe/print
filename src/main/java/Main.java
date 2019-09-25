@@ -172,7 +172,7 @@ public class Main {
       printer.lineFeed(3);
 
       try {
-        Thread.sleep(3000);
+        Thread.sleep(10000);
       } catch (InterruptedException ex) {
       }
     }
