@@ -145,30 +145,28 @@ public class Main {
       //else
       //  printer.text(e.regionOfOrigin, new Font(" Monospaced", Font.BOLD, 22), false);
 
-      printer.text(e.foundDead, new Font(" Monospaced", Font.BOLD, 20), false);
-      printer.text(e.number + " dead", new Font(" Monospaced", Font.PLAIN, 20), false);
-
-      if(e.number.trim().equals("1") && e.nameGenderAge.contains("Name(s)"))
-        e.nameGenderAge = e.nameGenderAge.replace("Name(s)", "Name");
 
       if(Integer.valueOf(e.number.trim()) > 1 && e.nameGenderAge.contains("Name(s)"))
         e.nameGenderAge = e.nameGenderAge.replace("Name(s)", "Names");
 
-      printer.text(e.nameGenderAge, new Font(" Monospaced", Font.PLAIN, 20), false);
+      if(e.number.trim().equals("1") && e.nameGenderAge.contains("Name(s)"))
+        e.nameGenderAge = e.nameGenderAge.replace("Name(s)", "Name");
+
+
+      printer.text(e.source, new Font(" Monospaced", Font.PLAIN, 20), true);
+      printer.text("Reported by:", new Font(" Monospaced", Font.PLAIN, 20), true);
+      printer.lineFeed(1);
+      printer.text(e.causeOfDeath, new Font(" Monospaced", Font.PLAIN, 20), true);
 
       if(e.regionOfOrigin.trim().equals("unknown"))
-        printer.text("Born in unknown location", new Font(" Monospaced", Font.PLAIN, 20), false);
+        printer.text("Born in unknown location", new Font(" Monospaced", Font.PLAIN, 20), true);
       else
-        printer.text("Born in " + e.regionOfOrigin, new Font(" Monospaced", Font.PLAIN, 20), false);
+        printer.text("Born in " + e.regionOfOrigin, new Font(" Monospaced", Font.PLAIN, 20), true);
 
-
-      printer.text(e.causeOfDeath, new Font(" Monospaced", Font.PLAIN, 20), false);
-      printer.lineFeed(1);
-      printer.text("Reported by:", new Font(" Monospaced", Font.PLAIN, 20), false);
-      printer.text(e.source, new Font(" Monospaced", Font.PLAIN, 20), false);
-
-      //printer.text("-----------", new Font(" Monospaced", Font.PLAIN, 20), false);
-
+      printer.text(e.nameGenderAge, new Font(" Monospaced", Font.PLAIN, 20), true);
+      printer.text(e.number + " dead", new Font(" Monospaced", Font.PLAIN, 20), true);
+      printer.text(e.foundDead, new Font(" Monospaced", Font.BOLD, 20), true);
+      
       printer.lineFeed(3);
 
       try {
