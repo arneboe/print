@@ -27,12 +27,25 @@ public class Porn {
   }
 
   private void loadNext() throws Exception {
-    final String jsonStr = readUrl("https://www.pornmd.com/getliveterms");
-    JSONArray array = (JSONArray)new JSONParser().parse(jsonStr);
-    for(int i = 0; i < array.size(); ++i) {
-      JSONObject obj = (JSONObject) array.get(i);
-      keywords.push(obj.get("keyword").toString());
+
+    final String[] urls = {"https://www.pornmd.com/api/v1/live-search?orientation=straight&country=",
+                           "https://www.pornmd.com/api/v1/live-search?orientation=tranny&country=",
+                           "https://www.pornmd.com/api/v1/live-search?orientation=gay&country="};
+
+    for(String url : urls)
+    {
+      final String jsonStr = readUrl(url);
+      final JSONObject obj = (JSONObject) new JSONParser().parse(jsonStr);
+      final JSONArray arr = (JSONArray) obj.get("live_search");
+//      System.out.println(arr);
+      for(int i = 0; i < arr.size(); ++i) {
+        final String keyword = arr.get(i).toString();
+        keywords.push(keyword);
       }
+    }
+
+
+
 
   }
 
