@@ -3,8 +3,11 @@ import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 
 import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.InputStreamReader;
 import java.net.URL;
+import java.util.Scanner;
 import java.util.Stack;
 
 
@@ -15,6 +18,25 @@ public class Porn {
   public Porn() throws Exception {
     loadNext();
   }
+
+  /** load database from file **/
+  public Porn(String file) throws Exception
+  {
+    loadFile(file);
+  }
+
+  private void loadFile(String file) throws FileNotFoundException {
+    //load existing words
+    File f = new File(file);
+
+    Scanner s = new Scanner(f);
+    while (s.hasNextLine()) {
+      keywords.add(s.nextLine());
+    }
+    s.close();
+    System.out.println("Loaded " + keywords.size() + " keywords from file");
+  }
+
 
   public String getNext() throws Exception {
     if(keywords.size() <= 0) {

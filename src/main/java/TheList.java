@@ -5,6 +5,8 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
+import static java.lang.System.exit;
+
 public class TheList {
 
     public class ListEntry
@@ -32,7 +34,15 @@ public class TheList {
         try (BufferedReader br = new BufferedReader(new FileReader(pathToCsv))) {
             String line;
             while ((line = br.readLine()) != null) {
+                if(line.length() == 0)
+                    continue;
                 String[] values = line.split("\\|");
+
+                if(values.length != 6)
+                {
+                    System.out.println("broken line: " + line);
+                    exit(1);
+                }
 
                 ListEntry e = new ListEntry();
                 e.foundDead = values[0];
@@ -58,6 +68,7 @@ public class TheList {
         } catch (IOException e) {
             e.printStackTrace();
         }
+
     }
 
 }
